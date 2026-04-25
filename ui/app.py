@@ -13,8 +13,12 @@ from pathlib import Path
 import subprocess
 
 # Auto-build ChromaDB index on startup if empty
+import sys
 chroma_path = "chroma_db"
 if not os.path.exists(chroma_path) or len(os.listdir(chroma_path)) == 0:
+    root = str(Path(__file__).parent.parent)
+    if root not in sys.path:
+        sys.path.insert(0, root)
     from src.rag.indexer import index_tickets
     index_tickets()
 
