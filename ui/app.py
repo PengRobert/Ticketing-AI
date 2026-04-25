@@ -15,8 +15,8 @@ import subprocess
 # Auto-build ChromaDB index on startup if empty
 chroma_path = "chroma_db"
 if not os.path.exists(chroma_path) or len(os.listdir(chroma_path)) == 0:
-    with st.spinner("🔄 Building knowledge base index for first time..."):
-        subprocess.run(["python3", "build_index.py"], check=True)
+    from src.rag.indexer import index_tickets
+    index_tickets()
 
 
 # Make project root importable regardless of how Streamlit is launched
